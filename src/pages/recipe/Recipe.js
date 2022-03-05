@@ -1,15 +1,22 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
+import { useTheme } from "../../hooks/useTheme";
 
 //styles
 import "./Recipe.css";
 
 export default function Recipe() {
   const { id } = useParams();
+
   const url = `http://localhost:3000/recipes/${id}`;
+
   const { data: recipe, isPending, error } = useFetch(url);
+
   const redirect = useNavigate();
+
+  const { mode } = useTheme();
+
   useEffect(() => {
     if (error) {
       setTimeout(() => {
@@ -17,8 +24,9 @@ export default function Recipe() {
       }, 3000);
     }
   }, [error, redirect]);
+
   return (
-    <div className="recipe">
+    <div className={`recipe ${mode}`}>
       {isPending && <p className="loading">Loading ...</p>}
       {error && <p className="error">{error}</p>}
       {recipe && (
