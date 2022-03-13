@@ -7,7 +7,7 @@ import "./Home.css";
 import RecipeList from "../../components/RecipeList";
 
 export default function Home() {
-  const url = `http://localhost:3000/recipes`;
+  const url = `http://localhost:8000/recipes`;
   const { data, isPending, error } = useFetch(url);
   return (
     <div className="home">
